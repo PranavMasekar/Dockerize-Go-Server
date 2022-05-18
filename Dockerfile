@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1
-# Base Image
 FROM golang:1.16-alpine
 # Making a folder where we run our commands
 WORKDIR /app
@@ -11,8 +9,8 @@ RUN go mod download
 # Coping the Golang code of project 
 COPY *.go ./
 # build our Go-server
-RUN go build -o /docker-gs-ping
+RUN go build -o golang-server .
 
 EXPOSE 8080
 
-CMD [ "/docker-gs-ping" ]
+CMD [ "/app/golang-server" ]
