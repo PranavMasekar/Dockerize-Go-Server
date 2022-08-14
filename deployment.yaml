@@ -5,7 +5,6 @@ metadata:
     app.kubernetes.io/name: go-server
   name: go-server
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: go-server
@@ -15,7 +14,7 @@ spec:
         app.kubernetes.io/name: go-server
     spec:
       containers:
-      - image: go-server:latest
+      - image: go-server:v1.0.0
         name: go-server
         imagePullPolicy: Never
         ports:
