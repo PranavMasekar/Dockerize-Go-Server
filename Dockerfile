@@ -1,15 +1,20 @@
-FROM golang:1.16-alpine
-# Making a folder where we run our commands
+FROM golang:1.16-alpine AS builder
+
+RUN apk add --no-cache git
+
 WORKDIR /app
-# importing all go modules
-COPY go.mod ./
-# COPY go.sum ./
+
+COPY . .
+
 RUN go mod download
 
-# Coping the Golang code of project 
-COPY *.go ./
-# build our Go-server
 RUN go build -o golang-server .
+
+FROM alpine:latest
+
+RUN apk add --no-cache ca-certificates
+
+COPY --from=builder /app/golang-server /app/golang-server
 
 EXPOSE 8080
 
